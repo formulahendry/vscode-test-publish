@@ -1,0 +1,20 @@
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Publish
+      run: |
+        # cd ./packages/vscode-extension
+        npm install
+        npx vsce publish
+      env:
+        VSCE_PAT: ${{ secrets.VSCE_PAT }}
